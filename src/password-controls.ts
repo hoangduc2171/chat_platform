@@ -1,5 +1,4 @@
 // Passsword controls class 
-
 interface PasswordProps {
     element: string,
     iconShow: string;

@@ -1,5 +1,10 @@
 import { messageNotify } from "./message-notify";
-import { openModal } from "./popup";
+import PopUp from "./popup";
+
+let modal = new PopUp({
+    container: '.modal-container',
+    closeClass: '.close-modal'
+})
 
 type FormData = {
     username: string, 
@@ -47,7 +52,7 @@ export function CheckForm(value: FormData, inputs: HTMLInputElement[], forms: HT
                 } else {
                     // Quá 5 lần sẽ chuyển đến trang quên mật khẩu.
                     clear();
-                    openModal();
+                    modal.openModal();
                 }
             } else {
                 // Tạo bộ đếm mới

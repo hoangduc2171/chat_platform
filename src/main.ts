@@ -1,5 +1,6 @@
 import Validation from "./validation";
 import PasswordControls from "./password-controls";
+
 // Slide button
 const slideButtons = document.querySelectorAll('.slide');
     slideButtons.forEach((slideBtn) => {

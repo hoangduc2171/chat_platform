@@ -1,32 +1,43 @@
-// Modal
-let modalContainer : HTMLElement | null = document.querySelector('.modal-container');
-let closeButtons = [...document.querySelectorAll('.close-modal')] as HTMLButtonElement[];
-
-export function openModal() {
-    if (modalContainer)
-        modalContainer.classList.remove('hide');
+interface PopUpProps {
+    container : string;
+    closeClass : string;
 }
 
-export function hideModal() {
-    if (modalContainer)
-        modalContainer.classList.add('hide');;
-}
+export default class PopUp {
+    private container : HTMLElement;
+    private removes : HTMLButtonElement[];
 
-if (modalContainer != null) {
-    let childModal = modalContainer.firstElementChild as HTMLElement | null;
-    modalContainer.onclick = () => {
-        hideModal();
-    };
-    
-    if (childModal) {
-        childModal.onclick = (e: Event) : void => {
-            e.stopPropagation();
-        };
+    constructor({container, closeClass} : PopUpProps) {
+        this.container = document.querySelector(container) as HTMLElement;
+        this.removes = [...document.querySelectorAll(closeClass)] as HTMLButtonElement[];
+
+        this.onInit();
     }
-    
-    closeButtons.forEach((button) => {
-        button.onclick = () => {
-            hideModal()
+
+    public onInit() {
+        let childModal = this.container.firstElementChild as HTMLElement | null;
+        this.container.onclick = () => {
+            this.hideModal();
         };
-    })
+        
+        if (childModal) {
+            childModal.onclick = (e: Event) : void => {
+                e.stopPropagation();
+            };
+        }
+        
+        this.removes.forEach((button) => {
+            button.onclick = () => {
+                this.hideModal()
+            };
+        })
+    }
+
+    public openModal() {
+        this.container.classList.remove('hide');
+    }
+
+    public hideModal() {
+        this.container.classList.add('hide');
+    }
 }
