@@ -8,28 +8,28 @@ const slideButtons = document.querySelectorAll('.slide');
     })
 })
 
-// Validation form
-new Validation(
-    {
-        form: '#sign-in__form',
-        text: '.input-subtext',
-        rules: [
-            Validation.checkEmail('#username'),
-            Validation.checkPassword('#password')
-        ]
-    }, 
-)
-
-new Validation(
-    {
-        form: '#forget-password__form',
-        text: '.input-subtext',
-        rules: [
-            Validation.checkEmail('#email'),
-        ]
-    }, 
-)
-
+document.addEventListener('DOMContentLoaded', () => {
+    new Validation(
+        {
+            form: '#sign-in__form',
+            text: '.input-subtext',
+            rules: [
+                Validation.checkEmail('#username'),
+                Validation.checkPassword('#password')
+            ]
+        }, 
+    )
+    
+    new Validation(
+        {
+            form: '#forget-password__form',
+            text: '.input-subtext',
+            rules: [
+                Validation.checkEmail('#email'),
+            ]
+        }, 
+    )
+});
 
 
 

@@ -35,10 +35,11 @@ export default class Validation {
             textElement.innerText = '';
         }
 
-        element.addEventListener('input', () => {
-            textElement.innerText = '';
-            parentElement.classList.remove('invalid');
-        })
+        if (element)
+            element.addEventListener('input', () => {
+                textElement.innerText = '';
+                parentElement.classList.remove('invalid');
+            })
         return rule.handle(element.value);
     }
 
@@ -53,27 +54,32 @@ export default class Validation {
 
     private onInit() {
         const formElement = document.querySelector(this.form) as HTMLElement;
-        this.rules.forEach(rule => {
-            const inputElement = formElement.querySelector(rule.selector) as HTMLInputElement;
-            inputElement.addEventListener('blur', () => {
-                this.onValidate(inputElement, rule);
+        if (formElement) {
+            this.rules.forEach(rule => {
+                const inputElement = formElement.querySelector(rule.selector) as HTMLInputElement;
+                inputElement.addEventListener('blur', () => {
+                    this.onValidate(inputElement, rule);
+                })
             })
-        })
-        let isValid = this.isValid(formElement);
-        formElement.addEventListener('submit', event => {
-            // loại bỏ sự kiện onsubmit để không load lại trang
-            event.preventDefault();
-            if (isValid) {
-                // Lấy giá trị từ các ô input có attr là name tránh trường hợp lấy giá trị checkbox;
-                let enableInputs = [...formElement.querySelectorAll('[name]:not([disable])')] as HTMLInputElement[];
-                let formValue = enableInputs.reduce((value: any, input) => {
-                    value[input.name] = input.value;
-                    return value;
-                }, {})
+            
+            formElement.addEventListener('submit', event => {
+                let isValid = this.isValid(formElement);
+                // loại bỏ sự kiện onsubmit để không load lại trang
+                
+                console.log(isValid);
+                event.preventDefault();
+                if (isValid) {
+                    // Lấy giá trị từ các ô input có attr là name tránh trường hợp lấy giá trị checkbox;
+                    let enableInputs = [...formElement.querySelectorAll('[name]:not([disable])')] as HTMLInputElement[];
+                    let formValue = enableInputs.reduce((value: any, input) => {
+                        value[input.name] = input.value;
+                        return value;
+                    }, {})
 
-               CheckForm(formValue, enableInputs, formElement);
-            }
-        })
+                CheckForm(formValue, enableInputs, formElement);
+                }
+            })
+        }
     }
     
     public static checkEmail(selector: string) {
