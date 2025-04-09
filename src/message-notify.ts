@@ -2,19 +2,35 @@
 type MessageNotifyProps = {
     type: string,
     text: string, 
-    button: HTMLButtonElement
+    duration?: number,
+    buttonHandled: HTMLButtonElement
 }
 
-export function messageNotify({type, text, button}: MessageNotifyProps) {
-    button.disabled = true;
-    let messageElement = document.querySelector('.error-notify') as HTMLElement;
-    let titleElement = messageElement.querySelector('.error-title') as HTMLElement;
+export default class MessageNotify {
+    private type : string;
+    private text: string;
+    private buttonHandled: HTMLButtonElement
+    static duration: number;
 
-    messageElement.classList.add(type);
-    titleElement.innerHTML = text;
-    
-    setTimeout(() => {
-        messageElement.classList.remove(type);
-        button.disabled = false;
-    }, 4000);
+    constructor({type, text, duration, buttonHandled}: MessageNotifyProps) {
+        this.type = type;
+        this.text = text;
+        this.buttonHandled = buttonHandled;
+
+        this.onInit(this.buttonHandled, duration ? duration : 3000);
+    }
+
+    onInit(button: HTMLButtonElement, duration: number) {
+        button.disabled = true;
+        let messageElement = document.querySelector('.error-notify') as HTMLElement;
+        let titleElement = messageElement.querySelector('.error-title') as HTMLElement;
+
+        messageElement.classList.add(this.type);
+        titleElement.innerHTML = this.text;
+        
+        setTimeout(() => {
+            messageElement.classList.remove(this.type);
+            button.disabled = false;
+        }, duration);
+    }
 }

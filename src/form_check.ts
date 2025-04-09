@@ -1,4 +1,4 @@
-import { messageNotify } from "./message-notify";
+import messageNotify from "./message-notify";
 import PopUp from "./popup";
 
 let modal = new PopUp({
@@ -38,10 +38,10 @@ export function CheckForm(value: FormData, inputs: HTMLInputElement[], forms: HT
             clear();
             window.location.href = './404_page.html';
         } else {
-            messageNotify({
+            new messageNotify({
                 type: 'error',
                 text: 'Bạn đã nhập sai tài khoản hoặc mật khẩu',
-                button: buttonElement
+                buttonHandled: buttonElement
             });
             // Nếu sai, kiểm tra xem tài khoản đó đã đăng nhập sai trước đó không, nếu chưa thì tạo một bộ đếm mới
             if (localStorage.getItem(userKey)) {
@@ -60,10 +60,10 @@ export function CheckForm(value: FormData, inputs: HTMLInputElement[], forms: HT
             }
         }
     } else {
-        messageNotify({
+        new messageNotify({
             type: 'error',
             text: 'Tài khoản không tồn tại!',
-            button: buttonElement
+            buttonHandled: buttonElement
         });
     }
 }
