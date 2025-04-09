@@ -1,4 +1,5 @@
 import Validation from "./validation";
+import PasswordControls from "./password-controls";
 // Slide button
 const slideButtons = document.querySelectorAll('.slide');
     slideButtons.forEach((slideBtn) => {
@@ -9,6 +10,11 @@ const slideButtons = document.querySelectorAll('.slide');
 })
 
 document.addEventListener('DOMContentLoaded', () => {
+    new PasswordControls({
+        element: '#password',
+        iconShow: '.fa-eye',
+        iconHide: '.fa-eye-slash'
+    })
     new Validation(
         {
             form: '#sign-in__form',
