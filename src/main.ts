@@ -1,4 +1,4 @@
-import { Validation } from "./validation";
+import Validation from "./validation";
 // Slide button
 const slideButtons = document.querySelectorAll('.slide');
     slideButtons.forEach((slideBtn) => {
@@ -9,7 +9,7 @@ const slideButtons = document.querySelectorAll('.slide');
 })
 
 // Validation form
-Validation(
+new Validation(
     {
         form: '#sign-in__form',
         text: '.input-subtext',
@@ -20,7 +20,7 @@ Validation(
     }, 
 )
 
-Validation(
+new Validation(
     {
         form: '#forget-password__form',
         text: '.input-subtext',

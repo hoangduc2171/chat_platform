@@ -11,12 +11,21 @@ interface ValidationProps {
     rules: Rule[]
 }
 
-// Nhận các đối số là form, thẻ hiển thị thông báo lỗi, các quy định (có phải email, password có đúng định dạng)
-export function Validation({form, text, rules} : ValidationProps) {
-    // Hàm xử lí khi blur checkout khỏi input
-    function validate(element: HTMLInputElement, rule: Rule) {
+export default class Validation {
+    private form: string;
+    private text: string;
+    private rules: Rule[];
+
+    constructor({form, text, rules} : ValidationProps) {
+        this.form = form;
+        this.text = text;
+        this.rules = rules;
+        this.onInit();
+    }
+
+    private onValidate(element: HTMLInputElement, rule: Rule) {
         const parentElement = element.parentElement as HTMLElement;
-        const textElement = parentElement.querySelector(text) as HTMLElement;
+        const textElement = parentElement.querySelector(this.text) as HTMLElement;
         const messageError : string | undefined = rule.handle(element.value);
         
         if (messageError) {
@@ -30,35 +39,30 @@ export function Validation({form, text, rules} : ValidationProps) {
             textElement.innerText = '';
             parentElement.classList.remove('invalid');
         })
-
         return rule.handle(element.value);
     }
-    
-    const formElement = document.querySelector(form) as HTMLElement;
-    if (formElement) {
-        rules.forEach((rule) => {
-            const inputElement = formElement.querySelector(rule.selector) as HTMLInputElement;
-            if (inputElement) {
-                inputElement.addEventListener('blur', () => {
-                    validate(inputElement, rule)
-                })
-            }
-        })
-        
-        // Xử lý submit 
 
-        formElement.addEventListener('submit', function(event) {
+    private isValid(formElement: HTMLElement) {
+        let checkValid : boolean[] = [];
+        this.rules.forEach(rule => {
+            const inputElement = formElement.querySelector(rule.selector) as HTMLInputElement;
+            checkValid.push(!this.onValidate(inputElement, rule));
+        })
+        return !checkValid.includes(false);
+    }
+
+    private onInit() {
+        const formElement = document.querySelector(this.form) as HTMLElement;
+        this.rules.forEach(rule => {
+            const inputElement = formElement.querySelector(rule.selector) as HTMLInputElement;
+            inputElement.addEventListener('blur', () => {
+                this.onValidate(inputElement, rule);
+            })
+        })
+        let isValid = this.isValid(formElement);
+        formElement.addEventListener('submit', event => {
             // loại bỏ sự kiện onsubmit để không load lại trang
             event.preventDefault();
-            // Biến checkValid để kiểm tra các trường có bị lỗi gì hay không
-            let checkValid : boolean[] = [];
-
-            rules.forEach(rule => {
-                const inputElement = formElement.querySelector(rule.selector) as HTMLInputElement;
-                checkValid.push(!validate(inputElement, rule));
-            })
-            let isValid = !checkValid.includes(false);
-            
             if (isValid) {
                 // Lấy giá trị từ các ô input có attr là name tránh trường hợp lấy giá trị checkbox;
                 let enableInputs = [...formElement.querySelectorAll('[name]:not([disable])')] as HTMLInputElement[];
@@ -70,28 +74,27 @@ export function Validation({form, text, rules} : ValidationProps) {
                CheckForm(formValue, enableInputs, formElement);
             }
         })
-    }    
-}
-
-
-Validation.checkEmail = function (selector: string) {
-    // regex check có phải email không
-    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return {
-        selector: selector, 
-        handle: (value: string) => {
-            return regex.test(value.trim()) ? undefined : 'Vui lòng nhập đúng email!';
+    }
+    
+    public static checkEmail(selector: string) {
+        // regex check có phải email không
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return {
+            selector: selector, 
+            handle: (value: string) => {
+                return regex.test(value.trim()) ? undefined : 'Vui lòng nhập đúng email!';
+            }
         }
     }
-}
 
-Validation.checkPassword = function (selector: string) {
-    // regex check mật khẩu có ít nhất 8 ký tự gồm chữ hoa, chữ thường, số
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    return {
-        selector: selector, 
-        handle: (value: string) => {
-            return regex.test(value.trim()) ? undefined : 'Ít nhất 8 ký tự, gồm chữ hoa, chữ thường, số.';
+    public static checkPassword = function (selector: string) {
+        // regex check mật khẩu có ít nhất 8 ký tự gồm chữ hoa, chữ thường, số
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        return {
+            selector: selector, 
+            handle: (value: string) => {
+                return regex.test(value.trim()) ? undefined : 'Ít nhất 8 ký tự, gồm chữ hoa, chữ thường, số.';
+            }
         }
     }
 }
