@@ -1,0 +1,23 @@
+@use 'variables';
+
+.input-field.invalid {
+    label {
+        color: variables.$red-color !important; 
+        top: 6px;
+        opacity: 1;
+    }
+
+    input {
+        padding: 20px 12px 8px 12px;
+        border: 1px solid variables.$red-color;
+        outline: 1px solid variables.$red-color;
+    }
+
+    .input-subtext {
+        color: variables.$red-color;
+        font-size: 12px;
+        text-align: left;
+        font-weight: 600;
+        margin-top: 4px;
+    }
+}

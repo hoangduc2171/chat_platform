@@ -1,0 +1,110 @@
+@use 'variables';
+
+@media (min-width: 1025px) {
+    #language-box {
+        right: 8px;
+    }
+}
+
+@media (max-width: 1025px) and (min-width: 577px) {
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 40% 60%;
+    }
+
+    .container::before {
+        transform: rotate(90deg) translateX(-25%) scale(2);
+    }
+
+    .container {
+        .panel-container {
+            display: grid;
+            justify-content: center;
+            grid-template-rows: 1fr 90%;
+            grid-template-areas: 
+            "button button"
+            "image content";            
+    
+            .panel-image {
+                grid-area: image;
+                width: 100%;
+                margin-left: 8px;
+            }
+    
+            .panel-content {
+                grid-area: content;
+                margin: 0 48px;
+            }
+
+            .panel-slider {
+                grid-area: button;
+                text-align: center;
+                margin-top: 8px;
+            }
+        }
+    
+        .form-container {
+            justify-content: center;
+            align-items: flex-start;
+    
+            #sign-in__form {
+                min-width: 60%;
+                margin: 0;
+            }
+        }
+    
+        #language-box {
+            right: 8px;
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .container {
+        &::before {
+            display: none;
+        }
+
+        .panel-container {
+            display: none;
+        }
+
+        .form-container {
+            justify-content: center;
+        }
+
+        #sign-in__form {
+            margin-right: 0;
+            width: 90%;
+        }
+
+        #language-box{
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            border-bottom-right-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+    }
+
+    #forget-container {
+        margin: 24px;
+        width: 90%;
+
+        #forget-password__form {
+            h1 {
+                font-size: 14px;
+            }
+            
+            p {
+                font-size: 12px;
+            }
+        }
+    }
+}

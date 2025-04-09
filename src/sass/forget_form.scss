@@ -1,0 +1,62 @@
+@use 'mixin';
+@use 'variables';
+@use 'button';
+
+#forget-container {
+    @include mixin.form-content(70%);
+    padding: 0;
+}
+
+.forget-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    background-color: variables.$red-color;
+    color: #fff;
+    padding: 20px 36px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}   
+
+.page-return {
+    text-align: left;
+    
+    a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        margin-left: 4px;
+        cursor: pointer;
+    }
+}
+
+#forget-password__form {
+    margin: 20px 48px;
+    padding-bottom: 32px;
+
+    img {
+        width: 50%;
+        margin-bottom: 24px;
+    }
+
+    h1, p {
+        text-align: left;
+    }
+
+    h1 {
+        color: variables.$red-color;
+        margin: 12px 0 16px 0;
+    }
+
+    p {
+        font-size: 1.3rem
+    }
+
+    .btn-submit {
+        @extend %btn;
+        width: 100%;
+        margin-top: 32px;
+    }
+}
+
+

@@ -1,0 +1,438 @@
+@use 'variables';
+@use 'button';
+@use 'mixin';
+
+%message {
+    margin-top: 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+
+html {
+    font-family: "Quicksand", sans-serif;
+    font-size: 62.5%;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    
+}
+
+.btn {
+    @extend %btn;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+.container::before {
+    position: absolute;
+    display: block;
+    content: "";
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: url('../../public/assets/img/rectangle.png') left center / 60% 100% no-repeat;
+    transition: all ease 0.5s;
+}
+
+.panel-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 60%;
+        transition: all ease 0.5s;
+    }
+
+    .panel-content {
+        text-align: center;
+        margin: 18px 24px;
+    }
+}
+
+.panel-content {
+    .title, .caption {
+        color: variables.$palletblue-color;
+    }
+
+    .title {
+        font-family: Helvetica, sans-serif;
+        font-size: 3rem;
+        font-weight: 500;
+    }
+
+    .caption {
+        margin-top: 12px;
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+}
+
+.panel-slider {
+    .slide {
+        width: 14px;
+        height: 14px;
+        border-radius: 100px;
+        background-color: #89a6ff;
+        margin: 0 12px;
+        border: none;
+        cursor: pointer;
+        position: relative;
+
+        &.active {
+            width: 16px;
+            height: 16px;
+            background-color: #527dff;
+
+            &::after {
+                display: block;
+                content: "";
+                position: absolute;
+                width: 8px;
+                height: 8px;
+                border-radius: 12px;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+            }
+        }
+    }
+}
+
+.form-container {
+    display: flex;
+    align-items: center;
+}
+
+#sign-in__form {
+    @include mixin.form-content(70%);
+}
+
+#sign-in__form {
+    .vss-logo {
+        width: 50%;
+        margin: 8px auto;
+    }
+
+    .title {
+        color: variables.$red-color;
+        margin: 32px 12px 16px 12px;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 16px;
+        position: relative;
+    }
+
+    .btn-login {
+        margin-top: 20px;
+    }
+}
+
+.input-field {
+    position: relative;
+    margin-top: 20px;
+}
+
+.input-field {
+    * {
+        transition: all ease 0.2s;
+        font-family: variables.$quicksand;
+    }
+
+    label {
+        position: absolute;
+        left: 13px;
+        top: 6px;
+        opacity: 0;
+        font-weight: 600;
+        color: variables.$palletblue-color;
+    }
+
+    input {
+        width: 100%;
+        padding: 14px;
+        border-radius: 6px;
+        border: 1px solid variables.$gray-color;
+
+        &:focus {
+            padding: 20px 12px 8px 12px;
+            border: 1px solid variables.$palletblue-color;
+            outline: 1px solid variables.$palletblue-color;
+        }
+
+        &:not(:placeholder-shown) {
+            padding: 20px 12px 8px 12px;
+        }
+
+        &:focus::placeholder {
+            opacity: 0;
+        }
+
+        &:focus ~ label, &:not(:placeholder-shown) ~ label {
+            top: 6px;
+            opacity: 1;
+        }
+
+        &:not(:focus) ~ label {
+            color: variables.$gray-color;
+        }
+    }
+}
+
+// form-actions
+
+.form-actions {
+    .checkbox-field {
+        position: relative;
+        padding: 12px 0;
+    }
+}
+
+#password-forget {
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: variables.$palletblue-color;
+}
+
+.checkbox-field {
+    input {
+        width: 0;
+        height: 0;
+        border: transparent;
+        cursor: pointer;
+
+        &::before {
+            display: block;
+            content: "";
+            width: 18px;
+            height: 18px;
+            background-color: #f1f1f1;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 1px solid variables.$gray-color;
+            border-radius: 6px;
+            transition: all ease 0.15s;
+        }
+
+        &:checked::before {
+            border: 1px solid variables.$red-color;
+            background-color: variables.$red-color;
+        }
+
+        &::after {
+            display: none;
+            content: "";
+            position: absolute;
+            top: 14px;
+            left: 7px;
+            height: 7px;
+            width: 3px;
+            border: solid #fff;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+            transition: all ease 0.15s;
+        }
+
+        &:checked::after {
+            display: block;
+        }
+    }
+
+    label {
+        margin-left: 24px;
+        font-weight: 500;
+        font-size: 1.4rem;
+    }
+
+    
+}
+
+.form-supports {
+    margin: 8px 12px 24px 12px;
+    font-size: 1.2rem;
+
+    a {
+        color: variables.$palletblue-color;
+        text-decoration: underline;
+        font-weight: 600;
+    }
+}
+
+#language-box {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    position: absolute;
+    top: 8px;
+}
+  
+#language-box {
+    img {
+        height: 18px;
+        width: 18px;
+    }
+
+    .language-select {
+        border: none;
+        outline: none;
+        font-family: variables.$quicksand;
+        margin-left: 8px;
+        background: url("../assets/img/arrow-down.png") top right / contain no-repeat;
+        padding-right: 22px;
+        text-align: center;
+        color: #8D99BB;
+    }
+}
+
+// Xử lí hiển thị mật khẩu
+ 
+.input-field {
+    // Xóa icon hiển thị mặc định của thẻ
+    input[type="password"] {
+        &::-ms-reveal, &::-webkit-password-reveal-button {
+            display: none;
+        }
+    }
+    
+    .password-icons {
+        position: absolute;
+        top: 16px;
+        right: 14px;
+        display: none;
+
+        &.show {
+            display: block;
+        }
+
+        i {
+            font-size: 1.6rem;
+            color: variables.$gray-color;
+            cursor: pointer;
+            display: none;
+        }
+
+        i.appear {
+            display: block;
+        }
+    }
+}
+
+.validation-message {
+    @extend %message;
+    text-align: left;
+}
+
+.validation-message.error {
+    color: variables.$red-color;
+}
+
+// Error Message 
+
+
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(calc(32px));
+    } to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    to {
+        opacity: 0;
+    }
+}
+
+.error-notify {
+    position: absolute;
+    top: 64px;
+    right: 16px;
+    display: none;
+    background-color: #fff;
+    justify-content: center;
+    border-radius: 8px;
+    overflow: hidden;
+    align-items: center;
+    box-shadow: 0 0 10px 4px rgba($color: variables.$palletblue-color, $alpha: 0.15);
+    animation: slideInLeft ease 0.3s, slideOut linear 1s 2s forwards;
+
+    .error-close {
+        font-size: 24px;
+        color: #fff;
+        padding: 16px;
+        border: none;
+        box-shadow: 0 0 10px 4px rgba($color: variables.$palletblue-color, $alpha: 0.15);
+        cursor: pointer;
+    }
+
+    .error-title {
+        font-size: 16px;
+        margin-left: 16px;
+        font-weight: 600;
+        padding-right: 32px;
+    }
+}
+
+.error-notify.error {
+    opacity: 1;
+    display: flex;
+
+    .error-close {
+        background-color: variables.$red-color;
+    }
+    .error-title {
+        color: variables.$red-color;
+    }
+}
+
+.error-notify.warning {
+    opacity: 1;
+    display: flex;
+
+    .error-close {
+        background-color: variables.$yellow-color;
+    }
+    .error-title {
+        color: variables.$yellow-color;
+    }
+}
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+

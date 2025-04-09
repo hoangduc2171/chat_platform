@@ -1,0 +1,82 @@
+@use 'variables';
+
+.modal-container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    animation: FadeIn ease 0.4s;
+
+    .modal {
+        position: absolute;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 48px 0;
+        border-radius: 18px;
+        margin: 0 16px;
+        animation: TopOut ease-out 0.4s;
+
+        i.close-modal {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            padding: 8px;
+            font-size: 1.8rem;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        img {
+            width: 50%;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-top: 12px;
+        }
+
+        .actions {
+            margin-top: 24px;
+
+            .btn {
+                font-size: 13px;
+                padding: 8px 16px;
+            }
+
+            button.btn {
+                background-color: transparent;
+                color: variables.$red-color;
+                margin-right: 16px;
+            }
+        }
+    }
+}
+
+.modal-container.hide {
+    display: none;
+}
+
+@keyframes FadeIn {
+    from {
+        opacity: 0;
+    } 
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes TopOut {
+    from {
+        transform: translateY(-50%);
+    } 
+    to {
+        transform: translateX(0);
+    }
+}
