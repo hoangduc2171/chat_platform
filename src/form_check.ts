@@ -1,24 +1,21 @@
 import messageNotify from "./message-notify";
 import PopUp from "./popup";
-
-let modal = new PopUp({
-    container: '.modal-container',
-    closeClass: '.close-modal'
-})
-
-type FormData = {
-    username: string, 
-    password: string
-}
+import { FormData } from "./types/api";
 
 let user : FormData = {
     username: "duc@gmail.com", 
     password: "Hduc12345"
 }
+
 // Ý tưởng: Sử dụng localStorage để lưu trữ số lần đăng nhập, sử dụng tên tài khoản làm key.
 // Hàm này sẽ nhận các giá trị trả về khi validation không có lỗi, các thẻ input chứa thông tin.
 
 export function CheckForm(value: FormData, inputs: HTMLInputElement[], forms: HTMLElement) {
+    let modal = new PopUp({
+        container: '.modal-container',
+        closeClass: '.close-modal'
+    })
+
     let buttonElement = forms.querySelector('button') as HTMLButtonElement;
     function clear() {
         inputs.forEach((input) => {
@@ -27,6 +24,7 @@ export function CheckForm(value: FormData, inputs: HTMLInputElement[], forms: HT
     }
     let userKey = `${value.username}`;
     let count = 1;
+    
     // Trước hết kiểm tra có tồn tại tài khoản không, nếu không hiển thị warning tài khoản không tồn tại.
     if (userKey == user.username) {
         // Nếu có check, tiếp đến password
