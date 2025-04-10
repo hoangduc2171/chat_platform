@@ -33,6 +33,7 @@ chat_platform/
 ├── index.html                # Trang chính của ứng dụng
 ├── package.json              # Thông tin về dự án và các phụ thuộc
 └── tsconfig.json             # Cấu hình TypeScript
+```
 
 ## ⚙️ Cài đặt và chạy dự án
 **Điều kiện:**
@@ -50,11 +51,9 @@ chat_platform/
     node -v     #Kiểm tra phiên bản hiện tại của NodeJS
     npm -v      #Kiểm tra phiên bản của package manager
 ```
-
 <p align="center">
     <img width="60%" src="https://github.com/user-attachments/assets/68dd824e-a0bf-470a-a1c0-b5bd0efc6e93" />
 </p>
-
 - Để tiến hành bước tiếp theo bạn hãy cài **[Vite](https://vite.dev/)** để tiến hành tạo CLI cho dự án hiện tại. Với dự án có sẵn thì chúng ta chỉ cần sử dụng lệnh: 
 ```bash 
     npm install vite@latest #Cài phiên bản Vite mới nhất
@@ -62,7 +61,6 @@ chat_platform/
 <p align="center">
     <img width="60%" src="https://github.com/user-attachments/assets/cd29598f-eadd-481f-91a4-6e986cd730bd" />
 </p>
-
 - Sau khi đã cài đặt thành công, để chạy dự án sử dụng lệnh: 
 ``` bash
     npm run dev
@@ -70,7 +68,6 @@ chat_platform/
 <p align="center">
     <img width="60%" src="https://github.com/user-attachments/assets/586d7b76-2038-44d2-9fe5-71fd06470f63" />
 </p>
-
 <h3 align="center">Cuối cùng truy cập trình duyệt tại http://localhost:5173 (Hoặc cổng tương ứng được hiển thị)</h3>
 
 ![{363C5FB9-C136-44CB-BF69-94AE4FC849A1}](https://github.com/user-attachments/assets/08533d44-ad0d-4b83-b9af-86dbce21563f)
