@@ -60,11 +60,25 @@ chat_platform/
 ```bash 
     npm install vite@latest #Cài phiên bản Vite mới nhất
 ```
+
 <p align="center">
     <img width="60%" src="https://github.com/user-attachments/assets/cd29598f-eadd-481f-91a4-6e986cd730bd" />
 </p>
+
+- Vite hỗ trợ SASS (SCSS) nên chúng ta không cần cài thêm plugin đặc biệt cho Vite để dùng SASS. Tuy nhiên, chúng ta vẫn phải cài thư viện sass trong dự án của mình.
+
+```bash 
+    npm install -D sass #Cài đặt sass vào devDependencies của dự án
+    npm list sass #Kiểm tra phiên bản của sass
+```
+<p align="center">
+    <img width="49%" src="https://github.com/user-attachments/assets/91e04dd1-3cde-44d3-850a-2d3fe6eb71ce" />
+    <img width="49%" src="https://github.com/user-attachments/assets/e48f842d-86e4-49de-883b-df9d5cfec884" />
+</p>
+
 - Sau khi đã cài đặt thành công, để chạy dự án sử dụng lệnh: 
-``` bash
+
+```bash
     npm run dev
 ```
 <p align="center">
